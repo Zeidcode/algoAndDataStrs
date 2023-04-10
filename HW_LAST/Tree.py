@@ -29,6 +29,28 @@ def count_leaves(root):
     else:
         return count_leaves(root.left) + count_leaves(root.right)
 
+def is_balanced(root):
+
+    if not root:
+        return True
+
+    
+    height_diff = abs(get_height(root.left) - get_height(root.right))
+    if height_diff > 1:
+        return False
+
+    return is_balanced(root.left) and is_balanced(root.right)
+
+def get_height(node):
+
+    if not node:
+        return 0
+
+    left_height = get_height(node.left)
+    right_height = get_height(node.right)
+
+    return max(left_height, right_height) + 1
+
 
 root = Node(4)
 root.left = Node(2)
@@ -44,3 +66,13 @@ print(max_val)
 # Count the number of leaves
 num_leaves = count_leaves(root)
 print(num_leaves)
+# Check if the tree is balanced
+balanced = is_balanced(root)
+print(balanced)
+# Create an unbalanced binary tree
+root = Node(1)
+root.left = Node(2)
+root.left.left = Node(3)
+# Check if the tree is balanced
+balanced = is_balanced(root)
+print(balanced)  # Output: False
